@@ -1,6 +1,6 @@
 <section class="books_section">
     <script>
-        fetch('http://localhost/Certificado/bookStore/index.php/books')
+        fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books')
             .then(res => res.json())
             .then(data => {
                 const booksSection = document.querySelector('.books_section');

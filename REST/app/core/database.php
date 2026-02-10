@@ -1,8 +1,9 @@
 <?php
+
 class Database {
     private static $host = "localhost";
     private static $db = "bookStore";
-    private static $user = "books";
+    private static $user = "root";
     private static $pass = "";
     private static $conn;
 
