@@ -3,8 +3,10 @@
         fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books')
             .then(res => res.json())
             .then(data => {
-                const booksSection = document.querySelector('.books_section');
+                const container = document.createElement('div');
+                container.classList.add('books_container');
 
+                const booksSection = document.querySelector('.books_section');
                 data.forEach(book => {
                     const card = document.createElement('div');
                     card.classList.add('book_card');
@@ -17,7 +19,8 @@
                                     <p class="price">$${book.price}</p>
                                     <button class="btn_buy">Add to cart</button>
                                     </div>`;
-                    booksSection.appendChild(card);
+                    container.appendChild(card);
+                    booksSection.appendChild(container);
                     });
             })
             .catch(err => console.error('Error loading books:', err));
