@@ -26,6 +26,7 @@ class Router
     public function route($method, $uri, $data = null)
     {
         $parts = explode("/", trim($uri, "/"));
+        
         if ($parts[0] == 'books') {
             $id = $parts[1] ?? null;
             switch ($method) {
@@ -44,6 +45,11 @@ class Router
             if ($parts[0] == 'login' && $method == 'POST') {
                 $auth = new AuthController();
                 $auth->login($data);
+                return;
+            }
+            // Register: POST /users (no auth required)
+            if ($parts[0] == 'users' && $method == 'POST') {
+                $this->controllerU->create($data);
                 return;
             }
             AuthMiddleware::verificarToken();

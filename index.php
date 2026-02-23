@@ -54,6 +54,7 @@ if ($c && $a) {
         </div>
     </section>
     <?php include 'REST/books.php'; ?>
+    <?php include 'app/views/layout/footer.php'; ?>
 </body>
 
 </html>

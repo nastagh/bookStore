@@ -15,10 +15,8 @@ class AuthController {
             return;
         }
 
-        // En este ejemplo, comprobamos contra la base de datos (si tu tabla tiene campo password)
-        //    o simplemente una validación simulada para pruebas.
         $user = User::findByEmail($data['email']);
-        if (!$user || $user['password'] !== $data['password']) {
+        if (!$user || !password_verify($data['password'], $user['password'])) {
             http_response_code(401);
             echo json_encode(['message' => 'Incorrect credentials']);
             return;

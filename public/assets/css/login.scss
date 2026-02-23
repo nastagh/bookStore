@@ -5,7 +5,14 @@
     font-family: "Playwrite NZ Basic", cursive;
 }
 
+.login_body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .main_container {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;

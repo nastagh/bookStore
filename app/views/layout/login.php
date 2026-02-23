@@ -17,7 +17,7 @@ require_once '../../core/Config.php';
     <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="login_body">
     <?php include 'header.php'; ?>
     <main class="main_container">
         <div class="wrapper">
@@ -48,15 +48,18 @@ require_once '../../core/Config.php';
                         </div>
                         <div class="signup-link">Not a member? <a href="">Signup now</a></div>
                     </form>
-                    <form action="#" class="signup">
+                    <form id="signupForm" class="signup">
                         <div class="field">
-                            <input type="text" placeholder="Email Address" required>
+                            <input type="text" id="name" placeholder="Name" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Password" required>
+                            <input type="text" id="email" placeholder="Email Address" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Confirm password" required>
+                            <input type="password" id="password" placeholder="Password" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
                         </div>
                         <div class="field btn">
                             <div class="btn-layer"></div>
@@ -67,25 +70,8 @@ require_once '../../core/Config.php';
             </div>
         </div>
     </main>
-    <script>
-        const loginText = document.querySelector(".title-text .login");
-        const loginForm = document.querySelector("form.login");
-        const loginBtn = document.querySelector("label.login");
-        const signupBtn = document.querySelector("label.signup");
-        const signupLink = document.querySelector("form .signup-link a");
-        signupBtn.onclick = (() => {
-            loginForm.style.marginLeft = "-50%";
-            loginText.style.marginLeft = "-50%";
-        });
-        loginBtn.onclick = (() => {
-            loginForm.style.marginLeft = "0%";
-            loginText.style.marginLeft = "0%";
-        });
-        signupLink.onclick = (() => {
-            signupBtn.click();
-            return false;
-        });
-    </script>
+    <?php include 'footer.php'; ?>
+        <script src="<?= BASE_URL ?>public/assets/js/login.js"></script>
 </body>
 
 </html>

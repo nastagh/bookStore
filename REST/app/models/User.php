@@ -17,4 +17,14 @@ class User {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public static function create($data) {
+        $db = Database::connect();
+        // Default id_role = 2 (user) if not provided
+        $idRole = isset($data['id_role']) ? (int) $data['id_role'] : 2;
+        $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
+        $stmt = $db->prepare("INSERT INTO users (name, email, password, id_role) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$data['name'], $data['email'], $passwordHash, $idRole]);
+        $id = $db->lastInsertId();
+        return $id ? self::find((int) $id) : null;
+    }
 }

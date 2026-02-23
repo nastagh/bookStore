@@ -1,6 +1,7 @@
 <?php
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
+
 require_once __DIR__ .'/../app/core/Router.php';
 
 $method = $_SERVER['REQUEST_METHOD']; //Gets the HTTP method of the request
