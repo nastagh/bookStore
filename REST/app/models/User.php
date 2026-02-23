@@ -3,7 +3,7 @@
 
 require_once __DIR__ ."/../core/database.php";
 
-class User{
+class User {
     
     public static function findByEmail($email) {
         $db = Database::connect();
