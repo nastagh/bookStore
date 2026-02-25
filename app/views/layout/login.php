@@ -34,14 +34,13 @@ require_once '../../core/Config.php';
                     <div class="slider-tab"></div>
                 </div>
                 <div class="form-inner">
-                    <form action="#" class="login">
+                    <form id="loginForm" class="login">
                         <div class="field">
-                            <input type="text" placeholder="Email Address" required>
+                            <input type="text" id="email_login" placeholder="Email Address" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Password" required>
+                            <input type="password" id="password_login" placeholder="Password" required>
                         </div>
-                        <div class="pass-link"><a href="#">Forgot password?</a></div>
                         <div class="field btn">
                             <div class="btn-layer"></div>
                             <input type="submit" value="Login">

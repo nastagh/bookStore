@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../controllers/BookController.php";
 require_once __DIR__ . "/../controllers/CategoryController.php";
 require_once __DIR__ . "/../controllers/UserController.php";
+require_once __DIR__ . "/../controllers/AuthController.php";
 
 // Define the Router class that will be responsible for analyzing the URL and the HTTP method.
 class Router
@@ -26,7 +27,7 @@ class Router
     public function route($method, $uri, $data = null)
     {
         $parts = explode("/", trim($uri, "/"));
-        
+
         if ($parts[0] == 'books') {
             $id = $parts[1] ?? null;
             switch ($method) {

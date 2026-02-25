@@ -15,6 +15,7 @@ class UserController
             echo json_encode($user);
         }
     }
+    
     public function create($data)
     {
         $user = User::create($data);

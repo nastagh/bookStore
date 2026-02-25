@@ -35,16 +35,41 @@ signupForm.addEventListener("submit", async (e) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password })
         });
-
+        const data = await res.json();
         if (res.ok) {
             alert("Account created successfully. You can log in now.");
             signupForm.reset();
             loginBtn.click();
         } else {
-            alert((data && data.message) || "Registration failed");
+            alert(data.message || "Registration failed");
         }
     } catch (err) {
-        console.error("Signup error", err);
+        alert("Network error. Please try again.");
+    }
+});
+
+// login form
+loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email_login").value.trim();
+    const password = document.getElementById("password_login").value;
+    try {
+        const res = await fetch("http://localhost/Certificado/bookStore/REST/public/index.php/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+            localStorage.setItem("token", data.token);
+            alert("Login successful");
+            loginForm.reset();
+            loginBtn.click();
+            window.location.href = "http://localhost/Certificado/bookStore/index.php";
+        } else {
+            alert(data.message || "Login failed");
+        }
+    } catch (err) {
         alert("Network error. Please try again.");
     }
 });

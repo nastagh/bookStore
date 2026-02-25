@@ -58,10 +58,16 @@ nav {
 .account_container {
     display: flex;
     align-items: center;
+    gap: 5px;
 
     img {
         width: 30px;
 
+    }
+
+    .account_name {
+        font-size: 18px;
+        color: white;
     }
 
 }

@@ -32,8 +32,10 @@ class AuthController {
             'iat' => $issuedAt,
             'exp' => $expire,
             'user' => [
-                'id' => $user['id'],
-                'email' => $user['email']
+                'id' => $user['id'] ?? $user['id_user'] ?? null,
+                'email' => $user['email'] ?? '',
+                'name' => $user['name'] ?? '',
+                'id_role' => (int) ($user['id_role'] ?? 2)
             ]
         ];
 

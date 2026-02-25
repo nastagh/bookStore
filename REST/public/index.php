@@ -1,5 +1,7 @@
 <?php
 
+// Don't send PHP warnings/notices to output (would break JSON)
+ini_set('display_errors', '0');
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ .'/../app/core/Router.php';
