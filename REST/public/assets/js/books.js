@@ -1,5 +1,3 @@
-import getUserFromToken from '../../../public/assets/js/header.js';
-
 const generateBooks = async () => {
     Promise.all([
         fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books').then(res => res.json()),
@@ -84,7 +82,6 @@ document.addEventListener("click", (e) => {
     const price = btn.getAttribute("data-price");
     const baseUrl = getBaseUrl();
     if (!isLoggedIn()) {
-    const user = typeof getUserFromToken === 'function' ? getUserFromToken() : null;
         window.location.href = baseUrl + "app/views/layout/login.php";
         return;
     }
