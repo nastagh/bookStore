@@ -71,7 +71,7 @@ if (basket_container) {
             window.location.href = BASE_URL + "app/views/layout/login.php";
             return;
         }
-        window.location.href = BASE_URL + "index.php?c=Order&a=getOrdersByUserId&id_user=" + user.id;
+        window.location.href = BASE_URL + "index.php?c=Order&a=getFullOrderInfo&id_user=" + user.id;
     });
 }
 
