@@ -14,5 +14,12 @@ class Order {
         $stmt->execute([$id_user, $created_at, $total_price]);
         return $db->lastInsertId();
     }
+
+    public static function getOrdersByUserId($id_user) {
+        $db = Database::connect();
+        $stmt = $db->prepare('SELECT * FROM orders WHERE id_user = ?');
+        $stmt->execute([$id_user]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

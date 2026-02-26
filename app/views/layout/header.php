@@ -18,6 +18,10 @@
             <ul>
                 <li><a href="<?= BASE_URL ?>index.php">Home</a></li>
                 <li><a href="<?= BASE_URL ?>blog.php">Blog</a></li>
+                <li class="basket_container">
+                    <img src="<?= BASE_URL ?>public/assets/images/basket.svg" alt="basket" title="basket" class="basket_icon" id="basketIcon">
+                </li>
+
                 <li class="account_container">
                     <img src="<?= BASE_URL ?>public/assets/images/account.svg" alt="account" title="Account" class="account_icon" id="accountIcon">
                     <span id="accountName" class="account_name"></span>

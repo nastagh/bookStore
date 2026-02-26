@@ -14,11 +14,14 @@ if ($c && $a) {
         $controllerName = $c . 'Controller';
         if (class_exists($controllerName) && method_exists($controllerName, $a)) {
             $controllerName::$a();
+            exit;
         } else {
             echo "Method or Controller not found.";
+            exit;
         }
     } else {
         echo "Controller file not found.";
+        exit;
     }
 }
 

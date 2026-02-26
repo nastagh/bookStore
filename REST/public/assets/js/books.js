@@ -1,3 +1,5 @@
+import getUserFromToken from '../../../public/assets/js/header.js';
+
 const generateBooks = async () => {
     Promise.all([
         fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books').then(res => res.json()),
@@ -49,6 +51,13 @@ const generateBooks = async () => {
 
 generateBooks();
 
+const getBaseUrl = () => {
+    const header = document.querySelector("header");
+    return (header && header.getAttribute("data-base-url")) || "http://localhost/Certificado/bookStore/";
+};
+
+const isLoggedIn = () => !!localStorage.getItem("token");
+
 const createBookCard = (book) => {
     const card = document.createElement('div');
     card.classList.add('book_card');
@@ -59,9 +68,26 @@ const createBookCard = (book) => {
                                     <h3>${book.title}</h3>
                                     <p class="author">${book.author}</p>
                                     <p class="price">$${book.price}</p>
-                                    <button class="btn_buy" onclick="addToCart(${book.id_book})">
+                                    <button type="button" class="btn_buy" data-book-id="${book.id_book}" data-price="${book.price}">
                                     <img src="REST/public/assets/images/cart.svg" alt="Cart">
-                                    <a href="?c=OrderItem&a=create&id_book=${book.id_book}&quantity=1&price=${book.price}">Add to cart</a></button>
+                                    Add to cart
+                                    </button>
                                     </div>`;
     return card;
-}   
+};
+
+document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn_buy");
+    if (!btn) return;
+    e.preventDefault();
+    const bookId = btn.getAttribute("data-book-id");
+    const price = btn.getAttribute("data-price");
+    const baseUrl = getBaseUrl();
+    if (!isLoggedIn()) {
+    const user = typeof getUserFromToken === 'function' ? getUserFromToken() : null;
+        window.location.href = baseUrl + "app/views/layout/login.php";
+        return;
+    }
+    window.location.href = baseUrl + "index.php?c=OrderItem&a=create&id_book=" + bookId + "&quantity=1&price=" + encodeURIComponent(price)+"&token=" + localStorage.getItem("token");
+    alert("Book added to cart");
+});

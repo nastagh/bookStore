@@ -3,6 +3,7 @@ const account_icon = document.getElementById("accountIcon");
 const account_name = document.getElementById("accountName");
 const header = document.querySelector("header");
 const BASE_URL = (header && header.getAttribute("data-base-url")) || "";
+const basket_container = document.querySelector(".basket_container");
 
 function getUserFromToken() {
     const token = localStorage.getItem("token");
@@ -40,6 +41,7 @@ function setAccountDisplay() {
         account_icon.alt = "user";
         account_icon.title = user.name || "User";
         if (account_name) account_name.textContent = user.name || user.email || "";
+        basket_container.style.display = "flex";
     }
 }
 
@@ -58,6 +60,18 @@ if (account_container) {
         } else {
             window.location.href = BASE_URL + "app/views/layout/login.php";
         }
+    });
+}
+
+if (basket_container) {
+    basket_container.addEventListener("click", (e) => {
+        e.preventDefault();
+        const user = getUserFromToken();
+        if (!user || !user.id) {
+            window.location.href = BASE_URL + "app/views/layout/login.php";
+            return;
+        }
+        window.location.href = BASE_URL + "index.php?c=Order&a=getOrdersByUserId&id_user=" + user.id;
     });
 }
 

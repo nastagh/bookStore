@@ -62,6 +62,7 @@ loginForm.addEventListener("submit", async (e) => {
         const data = await res.json();
         if (res.ok && data.token) {
             localStorage.setItem("token", data.token);
+            document.cookie = "token=" + data.token + "; path=/; max-age=3600";
             alert("Login successful");
             loginForm.reset();
             loginBtn.click();

@@ -54,6 +54,17 @@ nav {
 
 
 }
+.basket_container {
+    display: none;
+   // display: flex;
+    align-items: center;
+    gap: 5px;
+
+    img {
+        width: 30px;
+    }
+}
+
 
 .account_container {
     display: flex;
