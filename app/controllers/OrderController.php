@@ -23,7 +23,11 @@ class OrderController
     public static function updateTotalPrice($id_order, $total_price) {
         return Order::updateTotalPrice($id_order, $total_price);
     }
-    
+
+    public static function recalculateTotalFromItems($id_order) {
+        return Order::recalculateTotalFromItems($id_order);
+    }
+
     public static function getFullOrderInfo() {
         $id_user = $_GET['id_user'] ?? null;
 
@@ -37,6 +41,14 @@ class OrderController
             ];
         }
         require __DIR__ . '/../views/layout/orders.php';
+    }
+
+    public static function delete($id_order) {
+        return Order::delete($id_order);
+    }
+
+    public static function getTotalPrice($id_order) {
+        return Order::getTotalPrice($id_order);
     }
 
 }

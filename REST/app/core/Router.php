@@ -32,7 +32,7 @@ class Router
             $id = $parts[1] ?? null;
             switch ($method) {
                 case 'GET':
-                    $id ? $this->controllerB->show($id) : $this->controllerB->index();
+                    $this->controllerB->index();
                     break;
             }
         } elseif ($parts[0] == 'categories') {
@@ -56,7 +56,7 @@ class Router
             AuthMiddleware::verificarToken();
             switch ($method) {
                 case 'GET':
-                    $id ? $this->controllerU->show($id) : $this->controllerU->index();
+                    $this->controllerU->show($id);
                     break;
                 default:
                     http_response_code(405);
@@ -72,4 +72,3 @@ class Router
 }
 
 
-/* Router.php is like the API's control center: Receives the URL and HTTP method from index.php Cleans and separates the route (users, users/1) Decides which controller action to execute Returns the JSON response to the user index.php → input Router.php → routes the request Controller → handles the logic Model → accesses the database */
