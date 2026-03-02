@@ -37,6 +37,12 @@ table {
     border: 1px solid #ddd;
 }
 
+@media only screen and (max-width: 780px) {
+    table {
+        width: 90%;
+    }
+}
+
 thead {
     background-color: #cdd3f5;
 
@@ -70,6 +76,8 @@ tbody {
     }
 }
 
+
+
 .quantity_button {
     background-color: #e3bd33;
     border: none;
@@ -81,6 +89,32 @@ tbody {
     &:hover {
         background-color: #c48a17;
         transform: scale(1.05);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    table {
+        width: 95%;
+    }
+
+    .quantity_button {
+        width: auto;
+        height: auto;    
+        padding: 5px;    
+    }
+
+    .order_image {
+        width: 40px;
+        height: 70px;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+
+    .orders_title {
+        font-size: 20px;
+        padding: 20px 0;
     }
 }
 

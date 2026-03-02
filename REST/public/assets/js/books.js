@@ -59,8 +59,10 @@ const isLoggedIn = () => !!localStorage.getItem("token");
 const createBookCard = (book) => {
     const card = document.createElement('div');
     card.classList.add('book_card');
+    const hasValidImage = typeof book.image === 'string' && book.image && book.image !== 'Array';
+    const imageSrc = hasValidImage ? `REST/public/assets/images/books/${book.image}` : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300"%3E%3Crect fill="%23e0dcf0" width="200" height="300"/%3E%3Ctext x="50%25" y="50%25" fill="%238a7fb8" font-size="14" text-anchor="middle" dy=".3em"%3ENo image%3C/text%3E%3C/svg%3E';
     card.innerHTML = `<div class="book_image">
-                                    <img src="REST/public/assets/images/books/${book.image}" alt="${book.title}" title="${book.title}">
+                                    <img src="${imageSrc}" alt="${book.title}" title="${book.title}">
                                     </div>
                                     <div class="book_info">
                                     <h3>${book.title}</h3>

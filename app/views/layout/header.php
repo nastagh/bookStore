@@ -14,10 +14,10 @@
             </h1>
         </div>
         <nav>
-
             <ul>
                 <li><a href="<?= BASE_URL ?>index.php">Home</a></li>
                 <li><a href="<?= BASE_URL ?>blog.php">Blog</a></li>
+                <li class="catalog_container">Catalog</li>
                 <li class="basket_container">
                     <img src="<?= BASE_URL ?>public/assets/images/basket.svg" alt="basket" title="basket" class="basket_icon" id="basketIcon">
                 </li>

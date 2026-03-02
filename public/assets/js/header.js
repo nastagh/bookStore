@@ -4,6 +4,7 @@ const account_name = document.getElementById("accountName");
 const header = document.querySelector("header");
 const BASE_URL = (header && header.getAttribute("data-base-url")) || "";
 const basket_container = document.querySelector(".basket_container");
+const catalog_container = document.querySelector(".catalog_container");
 
 function getUserFromToken() {
     const token = localStorage.getItem("token");
@@ -35,6 +36,7 @@ function setAccountDisplay() {
         account_icon.src = BASE_URL + "public/assets/images/account-admin.svg";
         account_icon.alt = "admin";
         account_icon.title = "Admin";
+        catalog_container.style.display = "inline-block";
         if (account_name) account_name.textContent = "admin";
     } else {
         account_icon.src = BASE_URL + "public/assets/images/account-login.svg";
@@ -75,3 +77,8 @@ if (basket_container) {
     });
 }
 
+if(catalog_container) {
+    catalog_container.addEventListener("click", () => {
+        window.location.href = BASE_URL + "REST/catalog.php";
+    })
+}

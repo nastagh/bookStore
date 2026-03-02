@@ -34,11 +34,30 @@ class Router
                 case 'GET':
                     $this->controllerB->index();
                     break;
+                case 'POST':
+                    $this->controllerB->create($data);
+                    break;
+                // case 'PUT':
+                //     $this->controllerB->update($parts[1], $data);
+                //     break;
+                // case 'DELETE':
+                //     $this->controllerB->delete($parts[1]);
+                //     break;
             }
         } elseif ($parts[0] == 'categories') {
+            $id = $parts[1] ?? null;
             switch ($method) {
                 case 'GET':
-                    $this->controllerC->index();
+                    $id ? $this->controllerC->show($id) : $this->controllerC->index();
+                    break;
+                case 'POST':
+                    $this->controllerC->create($data);
+                    break;
+                case 'PUT':
+                    $this->controllerC->update($parts[1], $data);
+                    break;
+                case 'DELETE':
+                    $this->controllerC->delete($parts[1]);
                     break;
             }
         } elseif (($parts[0] == 'login' && $method == 'POST') || $parts[0] == 'users') {
