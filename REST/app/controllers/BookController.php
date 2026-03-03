@@ -21,5 +21,26 @@ class BookController
         }
     }
 
+    public function delete($id) {
+        $deleted = Book::delete($id);
+        if (!$deleted) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Book not found']);
+        } else {
+            http_response_code(200);
+            echo json_encode(['message' => 'Book deleted']);
+        }
+    }
+
+    public function update($id, $data) {
+        $updated = Book::update($id, $data);
+        if (!$updated) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Book not found']);
+        } else {
+            http_response_code(200);
+            echo json_encode(['message' => 'Book updated']);
+        }
+    }
 
 }

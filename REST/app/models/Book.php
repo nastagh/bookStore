@@ -35,7 +35,19 @@ class Book {
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+    public static function delete($id) {
+        $db = Database::connect();
+        $stmt = $db->prepare("DELETE FROM books WHERE id_book = ?");
+        $stmt->execute([$id]);
+        return $stmt->rowCount();
+    }
     
+    public static function update($id, $data) {
+        $db = Database::connect();
+        $stmt = $db->prepare("UPDATE books SET stock = ? WHERE id_book = ?");
+        $stmt->execute([$data['stock'], $id]);
+        return $stmt->rowCount();
+    }
 }
 
 ?>

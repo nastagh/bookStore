@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playwrite NZ Basic", cursive;
+}
+
+.blog_body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.blog_container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem 50px;
+    width: 100%;
+}
+
+.blog-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.blog-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 1rem;
+
+    h1 {
+        font-family: "Titan One", sans-serif;
+        color: #1c0e76;
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1.25rem;
+    }
+
+    p {
+        color: #3d3563;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 640px;
+        margin: 0 auto 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.blog-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.blog-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    border: 1px solid #e0dcf0;
+    box-shadow: 0 2px 12px rgba(28, 14, 118, 0.06);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        border-color: #c4bdd9;
+        box-shadow: 0 4px 20px rgba(28, 14, 118, 0.1);
+    }
+
+    h2 {
+        font-family: "Titan One", sans-serif;
+        color: #1c0e76;
+        font-size: 1.35rem;
+        line-height: 1.3;
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-category {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #1c0e76;
+        background: #e8e4f5;
+        padding: 0.25rem 0.75rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: #3d3563;
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: 0.75rem;
+
+        &:last-of-type {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .read-more {
+        display: inline-block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1c0e76;
+        transition: color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            color: #2a1890;
+            transform: translateX(4px);
+            cursor: pointer;
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .blog_container {
+        padding: 1.25rem 1rem 40px;
+    }
+
+    .blog-intro h1 {
+        font-size: 1.6rem;
+    }
+
+    .blog-card {
+        padding: 1.25rem 1.25rem;
+
+        h2 {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.extra {
+    display: none;
+}

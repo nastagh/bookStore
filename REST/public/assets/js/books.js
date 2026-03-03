@@ -54,7 +54,7 @@ const getBaseUrl = () => {
     return (header && header.getAttribute("data-base-url")) || "http://localhost/Certificado/bookStore/";
 };
 
-const isLoggedIn = () => !!localStorage.getItem("token");
+// const isLoggedIn = () => !!localStorage.getItem("token");
 
 const createBookCard = (book) => {
     const card = document.createElement('div');
@@ -76,6 +76,20 @@ const createBookCard = (book) => {
     return card;
 };
 
+function getUserFromToken() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    try {
+        const payload = token.split(".")[1];
+        if (!payload) return null;
+        const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+        const data = JSON.parse(json);
+        return data.user || null;
+    } catch (_) {
+        return null;
+    }
+}
+
 document.addEventListener("click", (e) => {
     const btn = e.target.closest(".btn_buy");
     if (!btn) return;
@@ -83,8 +97,16 @@ document.addEventListener("click", (e) => {
     const bookId = btn.getAttribute("data-book-id");
     const price = btn.getAttribute("data-price");
     const baseUrl = getBaseUrl();
-    if (!isLoggedIn()) {
+    
+    const user = getUserFromToken();
+    const idRole = user ? user.id_role : null;
+    const isAdmin = idRole === 1;
+
+    if (!user) {
         window.location.href = baseUrl + "app/views/layout/login.php";
+        return;
+    } else if (isAdmin) {
+        alert("Admin cannot add books to cart");
         return;
     }
     window.location.href = baseUrl + "index.php?c=OrderItem&a=create&id_book=" + bookId + "&quantity=1&price=" + encodeURIComponent(price)+"&token=" + localStorage.getItem("token");

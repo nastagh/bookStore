@@ -51,11 +51,11 @@ require_once __DIR__ . '/../app/core/Config.php';
             <table class="books_table_wrapper">
                 <thead>
                     <tr>
-                        <th>Image</th>
+                        <th class="image_column">Image</th>
                         <th>Title</th>
-                        <th>Author</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th class="author_column">Author</th>
+                        <th class="price_column">Price</th>
+                        <th >Stock</th>
                         <th>Category</th>
                         <th>Action</th>
                     </tr>
@@ -63,6 +63,12 @@ require_once __DIR__ . '/../app/core/Config.php';
                 <tbody class="books_table">
                 </tbody>
             </table>
+
+            <form id="edit_book_form">
+                <label id="book_title"></label>
+                <input id="stock_edit" type="number" name="stock" placeholder="Book stock" required>
+                <button type="submit">Edit Book</button>
+            </form>
         </section>
     </main>
     <?php include __DIR__ . '/../app/views/layout/footer.php'; ?>

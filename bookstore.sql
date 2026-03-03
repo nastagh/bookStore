@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2026 at 09:46 PM
+-- Generation Time: Mar 03, 2026 at 11:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,7 +104,7 @@ INSERT INTO `books` (`id_book`, `title`, `image`, `author`, `price`, `stock`, `i
 (58, 'The Wright Brothers', 'wright_brothers.jpg', 'David McCullough', 17.50, 18, 3),
 (59, 'Postwar', 'postwar.jpg', 'Tony Judt', 29.99, 15, 3),
 (60, 'The History of the Ancient World', 'ancient_world.jpg', 'Susan Wise Bauer', 24.99, 16, 3),
-(61, 'SPQR: A History of Ancient Rome', 'spqr.jpg', 'Mary Beard', 19.99, 25, 3);
+(61, 'SPQR: A History of Ancient Rome', 'spqr.jpg', 'Mary Beard', 19.99, 24, 3);
 
 -- --------------------------------------------------------
 
@@ -141,17 +141,6 @@ CREATE TABLE `orders` (
   `total_price` decimal(10,2) NOT NULL CHECK (`total_price` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id_order`, `id_user`, `created_at`, `total_price`) VALUES
-(1, 2, '2026-02-10 11:55:50', 49.98),
-(2, 3, '2026-02-01 11:57:51', 24.50),
-(3, 1, '2026-02-15 13:36:24', 22.50),
-(4, 1, '2026-02-15 13:37:10', 24.99),
-(5, 1, '2026-02-15 14:20:33', 20.99);
-
 -- --------------------------------------------------------
 
 --
@@ -164,17 +153,6 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL CHECK (`quantity` > 0),
   `price` decimal(10,2) NOT NULL CHECK (`price` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `order_items`
---
-
-INSERT INTO `order_items` (`id_order`, `id_book`, `quantity`, `price`) VALUES
-(1, 1, 1, 19.99),
-(2, 2, 1, 24.50),
-(3, 20, 1, 22.50),
-(4, 19, 1, 24.99),
-(5, 40, 1, 20.99);
 
 -- --------------------------------------------------------
 
@@ -214,9 +192,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `name`, `email`, `password`, `id_role`) VALUES
-(1, 'Alice Johnson', 'alice@example.com', '$2y$hashedpassword1', 1),
 (2, 'Bob Smith', 'bob@example.com', '$2y$hashedpassword2', 2),
-(3, 'Charlie Brown', 'charlie@example.com', '$2y$hashedpassword3', 2);
+(3, 'Charlie Brown', 'charlie@example.com', '$2y$hashedpassword3', 2),
+(13, 'Anastasiya', 'aaa@mail.ru', '$2y$10$UIISXr2cYDryBGRrZDK8Pe0Pq92HX0ioRQbqrg2UrKkm9uvIUQVvO', 2),
+(14, 'Alice', 'alice@mail.ru', '$2y$10$jJL4L0f2NVJCkP7HVx7FJerDx9SXV2FWCNJZFoWedqsh09stD5zKK', 2),
+(19, 'Alice', 'alice@gmail.com', '$2y$10$aEdGs2/0FKlviq1o8S56wuwA3SoVyv4vGT67DEvWE/4RXT9vfkvEK', 2),
+(20, 'admin', 'admin@gmail.com', '$2y$10$pOuQ9ZaOqHSvRsOKBEXFrO.DXDpdWjWthQyAfx.fYQhYt1SJMFm76', 1);
 
 --
 -- Indexes for dumped tables
@@ -273,19 +254,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -297,7 +278,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

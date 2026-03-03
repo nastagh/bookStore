@@ -95,11 +95,12 @@ nav {
     }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 680px) {
     header {
         flex-direction: column;
         gap: 20px;
         border-bottom: 1px solid rgb(160, 159, 159);
+        padding: 10px 20px;
     }
 
     nav {

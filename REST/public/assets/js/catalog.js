@@ -43,6 +43,38 @@ const initCatalog = async () => {
 initCatalog();
 
 const editCategoryForm = document.getElementById('edit_category_form');
+const booksTable = document.querySelector(".books_table");
+const editBookForm = document.getElementById('edit_book_form');
+const bookTitle = document.getElementById('book_title');
+
+const generateBooks = async () => {
+    const [books, categories] = await Promise.all([
+        fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books').then(res => res.json()),
+        fetch('http://localhost/Certificado/bookStore/REST/public/index.php/categories').then(res => res.json())
+    ]);
+    const categoryById = {};
+    categories.forEach(cat => { categoryById[cat.id_categoria] = cat.name; });
+
+    books.forEach(book => {
+        const row = document.createElement('tr');
+        const categoryName = categoryById[book.id_categoria];
+        const hasValidImage = typeof book.image === 'string' && book.image && book.image !== 'Array';
+        const imageSrc = hasValidImage
+            ? `http://localhost/Certificado/bookStore/REST/public/assets/images/books/${book.image}`
+            : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="90" viewBox="0 0 60 90"%3E%3Crect fill="%23e0dcf0" width="60" height="90"/%3E%3Ctext x="50%25" y="50%25" fill="%238a7fb8" font-size="10" text-anchor="middle" dy=".3em"%3ENo image%3C/text%3E%3C/svg%3E';
+        row.innerHTML = `<td class="image_column"><img src="${imageSrc}" alt="${book.title}" title="${book.title}"></td>
+                               <td>${book.title}</td>
+                               <td class="author_column">${book.author}</td>
+                               <td class="price_column">$${book.price}</td>
+                               <td>${book.stock}</td>
+                               <td>${categoryName}</td>
+                               <td class="actions"><button class="edit_book" data-id="${book.id_book}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}" data-stock="${book.stock}" data-category="${book.id_categoria}">Edit</button>
+                               <button class="delete_book" data-id="${book.id_book}">Delete</button></td>`;
+        booksTable.appendChild(row);
+    });
+};
+generateBooks();
+
 document.addEventListener('click', (e) => {
     if(e.target.classList.contains('edit_category')) {
         editCategoryForm.style.display = 'block';
@@ -62,39 +94,28 @@ document.addEventListener('click', (e) => {
         })
         .catch(err => console.error('Error deleting category:', err));
     }
+
+    if(e.target.classList.contains('delete_book')) {
+        const bookId = e.target.dataset.id;
+        fetch(`http://localhost/Certificado/bookStore/REST/public/index.php/books/${bookId}`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            booksTable.innerHTML = '';
+            generateBooks();
+        })
+        .catch(err => console.error('Error deleting book:', err));
+    }
+
+    if(e.target.classList.contains('edit_book')) {
+        editBookForm.style.display = 'block';
+        bookTitle.textContent = e.target.dataset.title;
+        const stockId = e.target.dataset.id;
+        const stockInput = document.getElementById('stock_edit');
+        stockInput.value = e.target.dataset.stock;
+        stockInput.setAttribute('data-id', stockId);
+    }
 })
-
-
-const booksTable = document.querySelector(".books_table");
-
-const generateBooks = async () => {
-    const [books, categories] = await Promise.all([
-        fetch('http://localhost/Certificado/bookStore/REST/public/index.php/books').then(res => res.json()),
-        fetch('http://localhost/Certificado/bookStore/REST/public/index.php/categories').then(res => res.json())
-    ]);
-    const categoryById = {};
-    categories.forEach(cat => { categoryById[cat.id_categoria] = cat.name; });
-
-    books.forEach(book => {
-        const row = document.createElement('tr');
-        const categoryName = categoryById[book.id_categoria];
-        const hasValidImage = typeof book.image === 'string' && book.image && book.image !== 'Array';
-        const imageSrc = hasValidImage
-            ? `http://localhost/Certificado/bookStore/REST/public/assets/images/books/${book.image}`
-            : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="90" viewBox="0 0 60 90"%3E%3Crect fill="%23e0dcf0" width="60" height="90"/%3E%3Ctext x="50%25" y="50%25" fill="%238a7fb8" font-size="10" text-anchor="middle" dy=".3em"%3ENo image%3C/text%3E%3C/svg%3E';
-        row.innerHTML = `<td><img src="${imageSrc}" alt="${book.title}" title="${book.title}"></td>
-                               <td>${book.title}</td>
-                               <td>${book.author}</td>
-                               <td>$${book.price}</td>
-                               <td>${book.stock}</td>
-                               <td>${categoryName}</td>
-                               <td class="actions"><button class="edit_book" data-id="${book.id_book}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}" data-stock="${book.stock}" data-category="${book.id_categoria}">Edit</button>
-                               <button class="delete_book" data-id="${book.id_book}">Delete</button></td>`;
-        booksTable.appendChild(row);
-    });
-};
-generateBooks();
-
 
 document.addEventListener('submit', (e) => {
     if (e.target.id === 'add_new_category') {
@@ -151,5 +172,23 @@ document.addEventListener('submit', (e) => {
             generateBooks();
         })
         .catch(err => console.error('Error adding book:', err));
+    }
+
+    if (e.target.id === 'edit_book_form') {
+        const stockCount = document.getElementById('stock_edit').value;
+        const stockId = document.getElementById('stock_edit').dataset.id;
+        fetch(`http://localhost/Certificado/bookStore/REST/public/index.php/books/${stockId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ stock: stockCount })
+        })
+        .then(() => {
+            e.target.reset();
+            editBookForm.style.display = 'none';
+            bookTitle.textContent = '';
+            booksTable.innerHTML = '';
+            generateBooks();
+        })
+        .catch(err => console.error('Error editing book:', err));
     }
 });
